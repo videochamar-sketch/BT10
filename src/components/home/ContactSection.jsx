@@ -2,6 +2,13 @@ import React, { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
+import ScrollReveal from '../effects/ScrollReveal';
+import HoverLift from '../effects/HoverLift';
+import AmbientLight from '../effects/AmbientLight';
+import RippleEffect from '../effects/RippleEffect';
+import AnimatedGradient from '../effects/AnimatedGradient';
+import VignetteOverlay from '../effects/VignetteOverlay';
+import DynamicUnderline from '../effects/DynamicUnderline';
 
 const ContactSection = () => {
   const sectionRef = useRef(null);
@@ -70,122 +77,144 @@ const ContactSection = () => {
     <section
       id="contact"
       ref={sectionRef}
-      className="min-h-screen section-dark text-white relative depth-3 section-transition"
+      className="min-h-screen section-dark text-white relative depth-3 section-transition morphing-bg"
     >
-      <div className="cinematic-overlay"></div>
+      <div className="cinematic-overlay">
+        <AnimatedGradient intensity="medium" />
+        <VignetteOverlay intensity="medium" />
+      </div>
       <div className="container mx-auto section-padding">
-        <div className="text-center component-margin space-y-4 sm:space-y-6 lg:space-y-8">
-          <h2 className="contact-title font-[font2] heading-responsive-xl uppercase mb-4 sm:mb-6 lg:mb-8 leading-tight text-layer-3 text-glow">
-            Get In Touch
-          </h2>
-          <div className="floating-panel-dark max-width-content">
-            <p className="font-[font1] text-responsive leading-relaxed text-layer-2">
-            The first step to your perfect film is a simple hello. Reach out to us today :)
-            </p>
-          </div>
-        </div>
-
-        <div className="contact-grid responsive-grid-2 max-width-wide">
-          {/* Contact Information */}
-          <div className="space-y-6 sm:space-y-8 lg:space-y-10">
-            <div className="contact-info floating-panel-dark space-y-4 sm:space-y-6">
-              <h3 className="font-[font2] heading-responsive-md uppercase text-[#D3FD50] text-layer-2 text-glow">
-                Contact Details
-              </h3>
-              <div className="space-y-3 sm:space-y-4 font-[font1] text-responsive text-layer-1">
-                <p className="flex items-start sm:items-center space-x-3 sm:space-x-4">
-                  <span className="micro-bounce glow-accent">📧</span>
-                  <span className="break-all sm:break-normal">contact@amouraworks.com</span>
-                </p>
-                <p className="flex items-start sm:items-center space-x-3 sm:space-x-4">
-                  <span className="micro-bounce glow-accent">📍</span>
-                  <span>22 ruelle du Clerc, 59126, Linselles (France)</span>
-                </p>
-                <p className="flex items-start sm:items-center space-x-3 sm:space-x-4">
-                  <span className="micro-bounce glow-accent">🕒</span>
-                  <span>M–F: 9am – 7pm (UTC+1)</span>
-                </p>
-              </div>
-            </div>
-
-            <div className="contact-info floating-panel-dark space-y-4 sm:space-y-6">
-              <h3 className="font-[font2] heading-responsive-md uppercase text-[#D3FD50] text-layer-2 text-glow">
-                Follow Us
-              </h3>
-              <div className="flex justify-center sm:justify-start space-x-4 sm:space-x-6">
-                {socialLinks.map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 glass glass-hover glass-click rounded-full flex items-center justify-center group glow-accent"
-                  >
-                    <span className="text-lg sm:text-xl lg:text-2xl micro-bounce glow-accent">
-                      {social.icon}
-                    </span>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div className="contact-info floating-panel-dark">
-              <h4 className="font-[font2] text-lg sm:text-xl lg:text-2xl uppercase text-[#D3FD50] mb-4 sm:mb-6 text-layer-2 text-glow">
-                  Quick Response Guarantee
-              </h4>
-              <p className="font-[font1] text-responsive text-layer-1 leading-relaxed">
-                  We respond to all inquiries within 24 hours. Your project deserves our immediate attention.
+        <ScrollReveal direction="down" stagger={0.2}>
+          <div className="text-center component-margin space-y-4 sm:space-y-6 lg:space-y-8">
+            <h2 className="contact-title font-[font2] heading-responsive-xl uppercase mb-4 sm:mb-6 lg:mb-8 leading-tight text-layer-3 text-glow neon-text">
+              <DynamicUnderline animationType="expand">
+                Get In Touch
+              </DynamicUnderline>
+            </h2>
+            <div className="floating-panel-dark max-width-content glass-enhanced border-glow">
+              <p className="font-[font1] text-responsive leading-relaxed text-layer-2 text-shimmer">
+              The first step to your perfect film is a simple hello. Reach out to us today :)
               </p>
             </div>
           </div>
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" stagger={0.3} className="contact-grid responsive-grid-2 max-width-wide">
+          {/* Contact Information */}
+          <div className="space-y-6 sm:space-y-8 lg:space-y-10">
+            <HoverLift liftAmount={10} scale={1.03} glowEffect={true}>
+              <div className="contact-info floating-panel-dark space-y-4 sm:space-y-6 glass-enhanced border-glow spotlight">
+                <h3 className="font-[font2] heading-responsive-md uppercase text-[#D3FD50] text-layer-2 text-glow gradient-text-animated">
+                  Contact Details
+                </h3>
+                <div className="space-y-3 sm:space-y-4 font-[font1] text-responsive text-layer-1">
+                  <p className="flex items-start sm:items-center space-x-3 sm:space-x-4">
+                    <span className="micro-bounce glow-accent pulse-glow">📧</span>
+                    <span className="break-all sm:break-normal">contact@amouraworks.com</span>
+                  </p>
+                  <p className="flex items-start sm:items-center space-x-3 sm:space-x-4">
+                    <span className="micro-bounce glow-accent pulse-glow">📍</span>
+                    <span>22 ruelle du Clerc, 59126, Linselles (France)</span>
+                  </p>
+                  <p className="flex items-start sm:items-center space-x-3 sm:space-x-4">
+                    <span className="micro-bounce glow-accent pulse-glow">🕒</span>
+                    <span>M–F: 9am – 7pm (UTC+1)</span>
+                  </p>
+                </div>
+              </div>
+            </HoverLift>
+
+            <HoverLift liftAmount={10} scale={1.03} glowEffect={true}>
+              <div className="contact-info floating-panel-dark space-y-4 sm:space-y-6 glass-enhanced border-glow spotlight">
+                <h3 className="font-[font2] heading-responsive-md uppercase text-[#D3FD50] text-layer-2 text-glow gradient-text-animated">
+                  Follow Us
+                </h3>
+                <div className="flex justify-center sm:justify-start space-x-4 sm:space-x-6">
+                  {socialLinks.map((social, index) => (
+                    <HoverLift key={index} liftAmount={8} scale={1.1} glowEffect={true}>
+                      <RippleEffect>
+                        <a
+                          href={social.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 glass glass-hover glass-click rounded-full flex items-center justify-center group glow-accent border-glow pulse-glow"
+                        >
+                          <span className="text-lg sm:text-xl lg:text-2xl micro-bounce glow-accent float-animation">
+                            {social.icon}
+                          </span>
+                        </a>
+                      </RippleEffect>
+                    </HoverLift>
+                  ))}
+                </div>
+              </div>
+            </HoverLift>
+
+            <HoverLift liftAmount={10} scale={1.03} glowEffect={true}>
+              <div className="contact-info floating-panel-dark glass-enhanced border-glow spotlight">
+                <h4 className="font-[font2] text-lg sm:text-xl lg:text-2xl uppercase text-[#D3FD50] mb-4 sm:mb-6 text-layer-2 text-glow gradient-text-animated">
+                    Quick Response Guarantee
+                </h4>
+                <p className="font-[font1] text-responsive text-layer-1 leading-relaxed">
+                    We respond to all inquiries within 24 hours. Your project deserves our immediate attention.
+                </p>
+              </div>
+            </HoverLift>
+          </div>
 
           {/* Quick Contact Form */}
-          <div className="contact-info floating-panel-dark">
-            <h3 className="font-[font2] heading-responsive-md uppercase text-[#D3FD50] mb-6 sm:mb-8 lg:mb-10 text-layer-2 text-glow">
-                Quick Inquiry
-            </h3>
+          <HoverLift liftAmount={12} scale={1.03} glowEffect={true}>
+            <AmbientLight className="contact-info floating-panel-dark glass-enhanced border-glow spotlight">
+              <h3 className="font-[font2] heading-responsive-md uppercase text-[#D3FD50] mb-6 sm:mb-8 lg:mb-10 text-layer-2 text-glow gradient-text-animated">
+                  Quick Inquiry
+              </h3>
 
-            <form className="space-y-6 sm:space-y-8">
-              <div className="form-grid form-grid-2 gap-4 sm:gap-6">
+              <form className="space-y-6 sm:space-y-8">
+                <div className="form-grid form-grid-2 gap-4 sm:gap-6">
+                    <input
+                      type="text"
+                      placeholder="First Name"
+                      className="w-full input-inset text-white placeholder-gray-400 glass-enhanced"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Last Name"
+                      className="w-full input-inset text-white placeholder-gray-400 glass-enhanced"
+                    />
+                </div>
+
                   <input
-                    type="text"
-                    placeholder="First Name"
-                    className="w-full input-inset text-white placeholder-gray-400"
+                    type="email"
+                    placeholder="Email Address"
+                    className="w-full input-inset text-white placeholder-gray-400 glass-enhanced"
                   />
+
                   <input
-                    type="text"
-                    placeholder="Last Name"
-                    className="w-full input-inset text-white placeholder-gray-400"
+                    type="date"
+                    placeholder="Wedding Date"
+                    className="w-full input-inset text-white placeholder-gray-400 glass-enhanced"
                   />
-              </div>
 
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  className="w-full input-inset text-white placeholder-gray-400"
-                />
+                  <textarea
+                    placeholder="Tell us about your wedding vision..."
+                    rows="3"
+                    className="w-full input-inset text-white placeholder-gray-400 resize-none glass-enhanced"
+                  ></textarea>
 
-                <input
-                  type="date"
-                  placeholder="Wedding Date"
-                  className="w-full input-inset text-white placeholder-gray-400"
-                />
-
-                <textarea
-                  placeholder="Tell us about your wedding vision..."
-                  rows="3"
-                  className="w-full input-inset text-white placeholder-gray-400 resize-none"
-                ></textarea>
-
-                <button
-                  type="submit"
-                  className="w-full btn-pill btn-primary h-12 sm:h-14 font-[font2] text-base sm:text-lg lg:text-xl"
-                >
-                  Send Inquiry
-                </button>
-            </form>
-          </div>
-        </div>
+                  <HoverLift liftAmount={6} scale={1.05} glowEffect={true}>
+                    <RippleEffect>
+                      <button
+                        type="submit"
+                        className="w-full btn-pill btn-primary h-12 sm:h-14 font-[font2] text-base sm:text-lg lg:text-xl btn-enhanced border-glow pulse-glow"
+                      >
+                        <span className="gradient-text-animated">Send Inquiry</span>
+                      </button>
+                    </RippleEffect>
+                  </HoverLift>
+              </form>
+            </AmbientLight>
+          </HoverLift>
+        </ScrollReveal>
       </div>
     </section>
   );

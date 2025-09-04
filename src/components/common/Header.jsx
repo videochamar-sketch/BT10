@@ -2,6 +2,9 @@ import React, { useRef, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
+import HoverLift from '../effects/HoverLift'
+import DynamicUnderline from '../effects/DynamicUnderline'
+import RippleEffect from '../effects/RippleEffect'
 
 const Header = () => {
   const headerRef = useRef(null)
@@ -108,18 +111,20 @@ const Header = () => {
           <nav className="flex items-center justify-between relative z-10">
             {/* Logo Area */}
             <div className="nav-item-animate flex-shrink-0">
-              <Link 
-                to="/"
-                className="flex items-center space-x-3 group"
-              >
-                {/* Placeholder logo area - easily replaceable */}
-                <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-[#D3FD50] to-[#b8e03e] rounded-full flex items-center justify-center glow-accent micro-bounce">
-                  <span className="font-[font2] text-black text-lg sm:text-xl lg:text-2xl">K</span>
-                </div>
-                <span className="font-[font2] text-lg sm:text-xl lg:text-2xl text-white uppercase tracking-wide">
-                  K72
-                </span>
-              </Link>
+              <HoverLift liftAmount={5} scale={1.05} glowEffect={true}>
+                <Link 
+                  to="/"
+                  className="flex items-center space-x-3 group"
+                >
+                  {/* Placeholder logo area - easily replaceable */}
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-[#D3FD50] to-[#b8e03e] rounded-full flex items-center justify-center glow-accent micro-bounce pulse-glow border-glow">
+                    <span className="font-[font2] text-black text-lg sm:text-xl lg:text-2xl">K</span>
+                  </div>
+                  <span className="font-[font2] text-lg sm:text-xl lg:text-2xl text-white uppercase tracking-wide text-shimmer">
+                    K72
+                  </span>
+                </Link>
+              </HoverLift>
             </div>
 
             {/* Desktop Navigation Links */}
@@ -127,33 +132,43 @@ const Header = () => {
               {navigationItems.map((item, index) => (
                 <div key={index} className="nav-item-animate">
                   {item.href.startsWith('#') ? (
-                    <button
-                      onClick={(e) => handleSmoothScroll(e, item.href)}
-                      className="nav-link font-[font2] text-sm lg:text-base xl:text-lg text-white uppercase tracking-wide relative group"
-                    >
-                      {item.name}
-                      <span className="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 ease-out group-hover:w-full" />
-                    </button>
+                    <HoverLift liftAmount={3} scale={1.02}>
+                      <DynamicUnderline animationType="expand">
+                        <button
+                          onClick={(e) => handleSmoothScroll(e, item.href)}
+                          className="nav-link font-[font2] text-sm lg:text-base xl:text-lg text-white uppercase tracking-wide relative group"
+                        >
+                          {item.name}
+                        </button>
+                      </DynamicUnderline>
+                    </HoverLift>
                   ) : (
-                    <Link
-                      to={item.href}
-                      className="nav-link font-[font2] text-sm lg:text-base xl:text-lg text-white uppercase tracking-wide relative group"
-                    >
-                      {item.name}
-                      <span className="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 ease-out group-hover:w-full" />
-                    </Link>
+                    <HoverLift liftAmount={3} scale={1.02}>
+                      <DynamicUnderline animationType="expand">
+                        <Link
+                          to={item.href}
+                          className="nav-link font-[font2] text-sm lg:text-base xl:text-lg text-white uppercase tracking-wide relative group"
+                        >
+                          {item.name}
+                        </Link>
+                      </DynamicUnderline>
+                    </HoverLift>
                   )}
                 </div>
               ))}
 
               {/* Become an Affiliate Button */}
               <div className="nav-item-animate">
-                <Link
-                  to="/affiliate-program"
-                  className="affiliate-btn font-[font2] text-xs lg:text-sm xl:text-base text-white uppercase tracking-wide px-4 lg:px-6 py-2 lg:py-3 border border-gray-400 rounded-full transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg hover:shadow-white/10 active:scale-95"
-                >
-                  Become an Affiliate
-                </Link>
+                <HoverLift liftAmount={5} scale={1.05} glowEffect={true}>
+                  <RippleEffect>
+                    <Link
+                      to="/affiliate-program"
+                      className="affiliate-btn font-[font2] text-xs lg:text-sm xl:text-base text-white uppercase tracking-wide px-4 lg:px-6 py-2 lg:py-3 border border-gray-400 rounded-full transition-all duration-300 ease-out btn-enhanced border-glow"
+                    >
+                      Become an Affiliate
+                    </Link>
+                  </RippleEffect>
+                </HoverLift>
               </div>
             </div>
 
@@ -161,12 +176,12 @@ const Header = () => {
             <div className="lg:hidden nav-item-animate mobile-menu-container">
               <button 
                 onClick={toggleMobileMenu}
-                className="w-12 h-12 flex flex-col items-center justify-center space-y-1.5 group p-2 relative z-50"
+                className="w-12 h-12 flex flex-col items-center justify-center space-y-1.5 group p-2 relative z-50 glass-enhanced border-glow"
                 aria-label="Toggle mobile menu"
               >
-                <span className={`w-5 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : 'group-hover:w-6'}`} />
-                <span className={`w-5 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : 'group-hover:w-6'}`} />
-                <span className={`w-5 h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : 'group-hover:w-6'}`} />
+                <span className={`w-5 h-0.5 bg-white transition-all duration-300 pulse-glow ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : 'group-hover:w-6'}`} />
+                <span className={`w-5 h-0.5 bg-white transition-all duration-300 pulse-glow ${isMobileMenuOpen ? 'opacity-0' : 'group-hover:w-6'}`} />
+                <span className={`w-5 h-0.5 bg-white transition-all duration-300 pulse-glow ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : 'group-hover:w-6'}`} />
               </button>
             </div>
           </nav>

@@ -1,24 +1,40 @@
 import React from 'react'
 import PageWrapper from '../components/common/PageWrapper'
+import ScrollReveal from '../components/effects/ScrollReveal'
+import HoverLift from '../components/effects/HoverLift'
+import AnimatedGradient from '../components/effects/AnimatedGradient'
+import VignetteOverlay from '../components/effects/VignetteOverlay'
+import DynamicUnderline from '../components/effects/DynamicUnderline'
 
 const TermsOfService = () => {
   return (
-    <PageWrapper className='section-dark text-white'>
-      <div className="cinematic-overlay"></div>
+    <PageWrapper className='section-dark text-white holographic'>
+      <div className="cinematic-overlay">
+        <AnimatedGradient intensity="medium" />
+        <VignetteOverlay intensity="medium" />
+      </div>
       <div className='container mx-auto section-padding'>
         <div className='max-width-content'>
-          <h1 className='font-[font2] text-3xl sm:text-4xl lg:text-5xl xl:text-6xl uppercase mb-6 sm:mb-8 leading-tight text-layer-3 text-glow'>
-            Terms of Service
-          </h1>
+          <ScrollReveal direction="down">
+            <h1 className='font-[font2] text-3xl sm:text-4xl lg:text-5xl xl:text-6xl uppercase mb-6 sm:mb-8 leading-tight text-layer-3 text-glow neon-text'>
+              <DynamicUnderline animationType="expand">
+                Terms of Service
+              </DynamicUnderline>
+            </h1>
+          </ScrollReveal>
           
-          <div className='font-[font1] text-xs sm:text-sm text-layer-1 mb-8 sm:mb-12'>
-            Last updated: January 15, 2025
-          </div>
+          <ScrollReveal direction="fade">
+            <div className='font-[font1] text-xs sm:text-sm text-layer-1 mb-8 sm:mb-12 text-shimmer'>
+              Last updated: January 15, 2025
+            </div>
+          </ScrollReveal>
 
-          <div className='space-y-8 sm:space-y-10 lg:space-y-12 floating-panel-dark'>
+          <ScrollReveal direction="up" stagger={0.2} className='space-y-8 sm:space-y-10 lg:space-y-12'>
+            <HoverLift liftAmount={8} scale={1.02} glowEffect={true}>
+              <div className='floating-panel-dark glass-enhanced border-glow spotlight'>
             {/* Introduction */}
             <section className='space-y-3 sm:space-y-4'>
-              <h2 className='font-[font2] heading-responsive-md uppercase text-[#D3FD50] text-glow'>
+              <h2 className='font-[font2] heading-responsive-md uppercase text-[#D3FD50] text-glow gradient-text-animated'>
                 Agreement to Terms
               </h2>
               <p className='font-[font1] text-responsive leading-relaxed text-layer-1'>
@@ -101,13 +117,13 @@ const TermsOfService = () => {
 
             {/* Contact Information */}
             <section className='space-y-3 sm:space-y-4'>
-              <h2 className='font-[font2] heading-responsive-md uppercase text-[#D3FD50] text-glow'>
+              <h2 className='font-[font2] heading-responsive-md uppercase text-[#D3FD50] text-glow gradient-text-animated'>
                 Legal Inquiries
               </h2>
               <p className='font-[font1] text-responsive leading-relaxed text-layer-1 mb-3 sm:mb-4'>
                 For questions regarding these terms or legal matters, please contact us:
               </p>
-              <div className='glass rounded-lg sm:rounded-xl responsive-padding-md space-y-1 sm:space-y-2'>
+              <div className='glass rounded-lg sm:rounded-xl responsive-padding-md space-y-1 sm:space-y-2 glass-enhanced border-glow'>
                 <p className='font-[font1] text-responsive text-layer-1 break-all sm:break-normal'>
                   <strong>Email:</strong> legal@amouraworks.com
                 </p>
@@ -119,7 +135,9 @@ const TermsOfService = () => {
                 </p>
               </div>
             </section>
-          </div>
+              </div>
+            </HoverLift>
+          </ScrollReveal>
         </div>
       </div>
     </PageWrapper>

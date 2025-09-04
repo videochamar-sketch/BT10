@@ -3,6 +3,12 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/all'
 import { Link } from 'react-router-dom'
+import ScrollReveal from '../effects/ScrollReveal'
+import HoverLift from '../effects/HoverLift'
+import RippleEffect from '../effects/RippleEffect'
+import AnimatedGradient from '../effects/AnimatedGradient'
+import VignetteOverlay from '../effects/VignetteOverlay'
+import DynamicUnderline from '../effects/DynamicUnderline'
 
 const CTASection = () => {
   const sectionRef = useRef(null)
@@ -84,60 +90,85 @@ const CTASection = () => {
     <section
       id="cta"
       ref={sectionRef}
-      className="min-h-screen section-dark-alt text-white relative depth-3 flex items-center section-transition"
+      className="min-h-screen section-dark-alt text-white relative depth-3 flex items-center section-transition morphing-bg"
       role="region"
       aria-labelledby="cta-heading"
     >
-      <div className="cinematic-overlay"></div>
+      <div className="cinematic-overlay">
+        <AnimatedGradient intensity="fast" />
+        <VignetteOverlay intensity="medium" />
+      </div>
       <div className="container mx-auto text-center w-full">
         <div className="max-width-wide">
-          <div className="floating-panel-dark space-y-8 sm:space-y-10 lg:space-y-12">
-            <h2 
-            id="cta-heading"
-              className="cta-fade font-[font2] heading-responsive-xl uppercase mb-4 sm:mb-6 lg:mb-8 leading-tight text-layer-3 text-glow"
-            >
-            Ready to Create Magic?
-            </h2>
-
-            <p className="cta-fade font-[font1] text-responsive leading-relaxed text-layer-2 max-width-text">
-            Transformons votre jour spécial en un chef-d'œuvre cinématographique qui raconte votre histoire unique.
-            </p>
-
-            <div className="cta-fade flex-col-mobile justify-center">
-              <Link
-              to="/contact"
-                className="btn-pill btn-primary h-12 sm:h-16 lg:h-20 px-8 sm:px-12 lg:px-16 inline-flex items-center justify-center group focus:outline-none"
-              aria-label="Get started with our wedding videography services"
+          <div className="floating-panel-dark space-y-8 sm:space-y-10 lg:space-y-12 glass-enhanced border-glow spotlight">
+            <ScrollReveal direction="scale">
+              <h2 
+              id="cta-heading"
+                className="cta-fade font-[font2] heading-responsive-xl uppercase mb-4 sm:mb-6 lg:mb-8 leading-tight text-layer-3 text-glow neon-text"
               >
-                <span className="font-[font2] text-base sm:text-xl lg:text-2xl">
-                Get Started Today
-                </span>
-              </Link>
+                <DynamicUnderline animationType="expand">
+                  Ready to Create Magic?
+                </DynamicUnderline>
+              </h2>
+            </ScrollReveal>
 
-              <Link
-              to="/projects"
-                className="btn-pill btn-secondary h-12 sm:h-16 lg:h-20 px-8 sm:px-12 lg:px-16 inline-flex items-center justify-center group focus:outline-none"
-              aria-label="View our wedding videography portfolio"
-              >
-                <span className="font-[font2] text-base sm:text-xl lg:text-2xl">
-                View Our Work
-                </span>
-              </Link>
-            </div>
+            <ScrollReveal direction="up" delay={0.2}>
+              <p className="cta-fade font-[font1] text-responsive leading-relaxed text-layer-2 max-width-text text-shimmer">
+              Transformons votre jour spécial en un chef-d'œuvre cinématographique qui raconte votre histoire unique.
+              </p>
+            </ScrollReveal>
 
-            <div className="cta-fade responsive-grid-3 text-center">
+            <ScrollReveal direction="up" delay={0.4} className="cta-fade flex-col-mobile justify-center">
+              <HoverLift liftAmount={10} scale={1.08} glowEffect={true}>
+                <RippleEffect>
+                  <Link
+                  to="/contact"
+                    className="btn-pill btn-primary h-12 sm:h-16 lg:h-20 px-8 sm:px-12 lg:px-16 inline-flex items-center justify-center group focus:outline-none btn-enhanced border-glow pulse-glow"
+                  aria-label="Get started with our wedding videography services"
+                  >
+                    <span className="font-[font2] text-base sm:text-xl lg:text-2xl gradient-text-animated">
+                    Get Started Today
+                    </span>
+                  </Link>
+                </RippleEffect>
+              </HoverLift>
+
+              <HoverLift liftAmount={8} scale={1.05} glowEffect={true}>
+                <RippleEffect>
+                  <Link
+                  to="/projects"
+                    className="btn-pill btn-secondary h-12 sm:h-16 lg:h-20 px-8 sm:px-12 lg:px-16 inline-flex items-center justify-center group focus:outline-none btn-enhanced border-glow"
+                  aria-label="View our wedding videography portfolio"
+                  >
+                    <span className="font-[font2] text-base sm:text-xl lg:text-2xl">
+                    View Our Work
+                    </span>
+                  </Link>
+                </RippleEffect>
+              </HoverLift>
+            </ScrollReveal>
+
+            <ScrollReveal direction="scale" stagger={0.15} className="cta-fade responsive-grid-3 text-center">
               {statsData.map((stat, index) => (
-                <div key={stat.label} className="floating-panel-dark glass-hover space-y-3 sm:space-y-4">
-                  <div className="text-2xl sm:text-3xl lg:text-4xl font-[font2] text-[#D3FD50] glow-accent text-layer-2 text-glow-strong">
-                  {stat.value}
-                  </div>
-                  <div className="font-[font1] text-xs sm:text-sm lg:text-base text-layer-1 uppercase tracking-wide">
-                  {stat.label}
-                  </div>
-                </div>
+                <HoverLift
+                  key={stat.label}
+                  liftAmount={8}
+                  scale={1.05}
+                  glowEffect={true}
+                  className="floating-panel-dark glass-hover space-y-3 sm:space-y-4 glass-enhanced border-glow spotlight"
+                >
+                  <AmbientLight>
+                    <div className="text-2xl sm:text-3xl lg:text-4xl font-[font2] text-[#D3FD50] glow-accent text-layer-2 text-glow-strong gradient-text-animated pulse-glow">
+                    {stat.value}
+                    </div>
+                    <div className="font-[font1] text-xs sm:text-sm lg:text-base text-layer-1 uppercase tracking-wide">
+                    {stat.label}
+                    </div>
+                  </AmbientLight>
+                </HoverLift>
               ))}
-            </div>
-          </div>
+            </ScrollReveal>
+                  </div>
         </div>
       </div>
     </section>

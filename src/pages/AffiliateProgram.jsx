@@ -1,6 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import PageWrapper from '../components/common/PageWrapper'
+import ScrollReveal from '../components/effects/ScrollReveal'
+import HoverLift from '../components/effects/HoverLift'
+import RippleEffect from '../components/effects/RippleEffect'
+import AnimatedGradient from '../components/effects/AnimatedGradient'
+import VignetteOverlay from '../components/effects/VignetteOverlay'
+import DynamicUnderline from '../components/effects/DynamicUnderline'
+import AmbientLight from '../components/effects/AmbientLight'
 
 const AffiliateProgram = () => {
   const benefits = [
@@ -53,33 +60,44 @@ const AffiliateProgram = () => {
   ]
 
   return (
-    <PageWrapper className='section-dark text-white'>
-      <div className="cinematic-overlay"></div>
+    <PageWrapper className='section-dark text-white morphing-bg'>
+      <div className="cinematic-overlay">
+        <AnimatedGradient intensity="fast" />
+        <VignetteOverlay intensity="medium" />
+      </div>
       <div className='container mx-auto section-padding'>
         <div className='max-width-wide'>
           {/* Header */}
-          <div className='text-center component-margin space-y-4 sm:space-y-6 lg:space-y-8'>
-            <h1 className='font-[font2] heading-responsive-xl uppercase mb-4 sm:mb-6 lg:mb-8 leading-tight text-layer-3 text-glow'>
-              Affiliate Program
-            </h1>
-            <div className='floating-panel-dark max-width-content'>
-              <p className='font-[font1] text-responsive leading-relaxed text-layer-2'>
-              Rejoignez notre programme d'affiliation et gagnez des commissions en recommandant nos services de vidéographie de mariage premium.
-              </p>
+          <ScrollReveal direction="down" stagger={0.2}>
+            <div className='text-center component-margin space-y-4 sm:space-y-6 lg:space-y-8'>
+              <h1 className='font-[font2] heading-responsive-xl uppercase mb-4 sm:mb-6 lg:mb-8 leading-tight text-layer-3 text-glow neon-text'>
+                <DynamicUnderline animationType="expand">
+                  Affiliate Program
+                </DynamicUnderline>
+              </h1>
+              <div className='floating-panel-dark max-width-content glass-enhanced border-glow'>
+                <p className='font-[font1] text-responsive leading-relaxed text-layer-2 text-shimmer'>
+                Rejoignez notre programme d'affiliation et gagnez des commissions en recommandant nos services de vidéographie de mariage premium.
+                </p>
+              </div>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Commission Highlight */}
-          <div className='text-center component-margin'>
-            <div className='floating-panel-dark bg-gradient-to-br from-[#D3FD50] to-[#b8e03e] inline-block glow-accent glass-hover animate-glow-pulse'>
-              <h2 className='font-[font2] text-3xl sm:text-4xl lg:text-5xl xl:text-6xl uppercase text-black mb-4 sm:mb-6 text-layer-2'>
-                15% Lifetime
-              </h2>
-              <p className='font-[font1] text-lg sm:text-xl lg:text-2xl text-black text-layer-1'>
-                Commission Rate
-              </p>
+          <ScrollReveal direction="scale">
+            <div className='text-center component-margin'>
+              <HoverLift liftAmount={15} scale={1.1} glowEffect={true}>
+                <div className='floating-panel-dark bg-gradient-to-br from-[#D3FD50] to-[#b8e03e] inline-block glow-accent glass-hover animate-glow-pulse border-glow pulse-glow liquid-morph'>
+                  <h2 className='font-[font2] text-3xl sm:text-4xl lg:text-5xl xl:text-6xl uppercase text-black mb-4 sm:mb-6 text-layer-2'>
+                    15% Lifetime
+                  </h2>
+                  <p className='font-[font1] text-lg sm:text-xl lg:text-2xl text-black text-layer-1'>
+                    Commission Rate
+                  </p>
+                </div>
+              </HoverLift>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Program Overview */}
           <section className='component-margin'>
@@ -96,32 +114,39 @@ const AffiliateProgram = () => {
 
           {/* Benefits Grid */}
           <section className='component-margin'>
-            <h2 className='font-[font2] heading-responsive-lg uppercase text-layer-2 mb-10 sm:mb-12 lg:mb-16 text-center text-glow'>
-              Program Benefits
-            </h2>
-            <div className='responsive-grid-2'>
+            <ScrollReveal direction="up">
+              <h2 className='font-[font2] heading-responsive-lg uppercase text-layer-2 mb-10 sm:mb-12 lg:mb-16 text-center text-glow gradient-text-animated'>
+                Program Benefits
+              </h2>
+            </ScrollReveal>
+            <ScrollReveal direction="scale" stagger={0.2} className='responsive-grid-2'>
               {benefits.map((benefit, index) => (
-                <div 
+                <HoverLift
                   key={index}
-                  className='group floating-panel-dark glass-hover glass-click gpu-accelerated'
+                  liftAmount={12}
+                  scale={1.05}
+                  glowEffect={true}
+                  className='group floating-panel-dark glass-hover glass-click gpu-accelerated glass-enhanced border-glow spotlight tilt-effect'
                 >
-                  <div className='text-4xl sm:text-5xl lg:text-6xl mb-6 sm:mb-8 micro-bounce glow-accent'>
-                    {benefit.icon}
-                  </div>
-                  
-                  <div className='space-y-4 sm:space-y-6'>
-                    <h3 className='font-[font2] heading-responsive-md uppercase text-layer-2'>
-                      {benefit.title}
-                    </h3>
-                    <p className='font-[font1] text-responsive leading-relaxed text-layer-1'>
-                      {benefit.description}
-                    </p>
-                  </div>
+                  <AmbientLight>
+                    <div className='text-4xl sm:text-5xl lg:text-6xl mb-6 sm:mb-8 micro-bounce glow-accent float-animation pulse-glow'>
+                      {benefit.icon}
+                    </div>
+                    
+                    <div className='space-y-4 sm:space-y-6'>
+                      <h3 className='font-[font2] heading-responsive-md uppercase text-layer-2 gradient-text-animated'>
+                        {benefit.title}
+                      </h3>
+                      <p className='font-[font1] text-responsive leading-relaxed text-layer-1'>
+                        {benefit.description}
+                      </p>
+                    </div>
 
-                  <div className='w-full accent-line mt-6 sm:mt-8 rounded-full glow-accent'></div>
-                </div>
+                    <div className='w-full accent-line mt-6 sm:mt-8 rounded-full glow-accent wave-animation'></div>
+                  </AmbientLight>
+                </HoverLift>
               ))}
-            </div>
+            </ScrollReveal>
           </section>
 
           {/* Requirements */}
@@ -228,16 +253,22 @@ const AffiliateProgram = () => {
           </section>
 
           {/* CTA */}
-          <div className='text-center'>
-            <Link 
-              to='/contact'
-              className='btn-pill btn-primary h-12 sm:h-14 lg:h-16 px-8 sm:px-12 lg:px-16 inline-flex items-center justify-center group'
-            >
-              <span className='font-[font2] text-base sm:text-lg lg:text-xl'>
-                Apply Now
-              </span>
-            </Link>
-          </div>
+          <ScrollReveal direction="up">
+            <div className='text-center'>
+              <HoverLift liftAmount={10} scale={1.08} glowEffect={true}>
+                <RippleEffect>
+                  <Link 
+                    to='/contact'
+                    className='btn-pill btn-primary h-12 sm:h-14 lg:h-16 px-8 sm:px-12 lg:px-16 inline-flex items-center justify-center group btn-enhanced border-glow pulse-glow'
+                  >
+                    <span className='font-[font2] text-base sm:text-lg lg:text-xl gradient-text-animated'>
+                      Apply Now
+                    </span>
+                  </Link>
+                </RippleEffect>
+              </HoverLift>
+            </div>
+          </ScrollReveal>
         </div>
       </div>
     </PageWrapper>

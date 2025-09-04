@@ -1,6 +1,10 @@
 import { Route, Routes } from 'react-router-dom'
 import { Suspense, lazy, useEffect } from 'react'
 import LoadingFallback from './components/common/LoadingFallback'
+import ParallaxBackground from './components/effects/ParallaxBackground'
+import ParticleField from './components/effects/ParticleField'
+import CustomCursor from './components/effects/CustomCursor'
+import ScrollProgress from './components/effects/ScrollProgress'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/all'
 
@@ -36,6 +40,12 @@ const App = () => {
 
   return (
     <div className='overflow-x-hidden'>
+      {/* Visual Effects Layer */}
+      <ParallaxBackground />
+      <ParticleField />
+      <CustomCursor />
+      <ScrollProgress />
+      
       <Suspense fallback={<LoadingFallback />}>
         <Routes>
           <Route path='/' element={<Home />} />

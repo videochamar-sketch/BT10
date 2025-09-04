@@ -2,6 +2,11 @@ import React, { useRef, useEffect, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/all'
+import ScrollReveal from '../effects/ScrollReveal'
+import HoverLift from '../effects/HoverLift'
+import RippleEffect from '../effects/RippleEffect'
+import AnimatedGradient from '../effects/AnimatedGradient'
+import VignetteOverlay from '../effects/VignetteOverlay'
 
 const StatsSection = () => {
   const sectionRef = useRef(null)
@@ -108,48 +113,58 @@ const StatsSection = () => {
   }, [hasAnimated])
 
   return (
-    <section id="stats" ref={sectionRef} className='min-h-screen section-dark text-white relative depth-3 section-transition'>
-      <div className="cinematic-overlay"></div>
+    <section id="stats" ref={sectionRef} className='min-h-screen section-dark text-white relative depth-3 section-transition holographic'>
+      <div className="cinematic-overlay">
+        <AnimatedGradient intensity="medium" />
+        <VignetteOverlay intensity="medium" />
+      </div>
       <div className='container mx-auto section-padding'>
         {/* Section Header */}
-        <div className='text-center component-margin space-y-4 sm:space-y-6 lg:space-y-8'>
-          <h2 className='stats-title font-[font2] heading-responsive-xl uppercase mb-4 sm:mb-6 lg:mb-8 leading-tight text-layer-3 text-glow'>
-            A Few Stats About Us
-          </h2>
-        </div>
+        <ScrollReveal direction="down" className='text-center component-margin space-y-4 sm:space-y-6 lg:space-y-8'>
+          <div>
+            <h2 className='stats-title font-[font2] heading-responsive-xl uppercase mb-4 sm:mb-6 lg:mb-8 leading-tight text-layer-3 text-glow neon-text'>
+              A Few Stats About Us
+            </h2>
+          </div>
+        </ScrollReveal>
 
         {/* Stats Grid */}
-        <div className='stats-grid responsive-grid-2 max-width-content'>
+        <ScrollReveal direction="scale" stagger={0.2} className='stats-grid responsive-grid-2 max-width-content'>
           {statsData.map((stat, index) => (
-            <div 
+            <HoverLift
               key={index}
-              className='stat-card group floating-panel-dark glass-hover glass-click text-center gpu-accelerated'
+              liftAmount={20}
+              scale={1.08}
+              glowEffect={true}
+              className='stat-card group floating-panel-dark glass-hover glass-click text-center gpu-accelerated glass-enhanced border-glow spotlight tilt-effect'
             >
-              {/* Icon */}
-              <div className='text-4xl sm:text-5xl lg:text-6xl mb-6 sm:mb-8 micro-bounce glow-accent'>
-                {stat.icon}
-              </div>
-              
-              {/* Number */}
-              <div className='mb-4 sm:mb-6'>
-                <span className='counter-number font-[font2] text-layer-2 glow-accent text-glow-strong' style={{background: 'none', backgroundColor: 'transparent'}}>
-                  0
-                </span>
-                <span className='font-[font2] text-3xl sm:text-4xl lg:text-5xl text-layer-2 glow-accent text-glow-strong' style={{background: 'none', backgroundColor: 'transparent'}}>
-                  {stat.suffix}
-                </span>
-              </div>
-              
-              {/* Label */}
-              <p className='font-[font1] text-responsive leading-relaxed text-layer-1'>
-                {stat.label}
-              </p>
+              <RippleEffect>
+                {/* Icon */}
+                <div className='text-4xl sm:text-5xl lg:text-6xl mb-6 sm:mb-8 micro-bounce glow-accent float-animation pulse-glow'>
+                  {stat.icon}
+                </div>
+                
+                {/* Number */}
+                <div className='mb-4 sm:mb-6'>
+                  <span className='counter-number font-[font2] text-layer-2 glow-accent text-glow-strong gradient-text-animated' style={{background: 'none', backgroundColor: 'transparent'}}>
+                    0
+                  </span>
+                  <span className='font-[font2] text-3xl sm:text-4xl lg:text-5xl text-layer-2 glow-accent text-glow-strong gradient-text-animated' style={{background: 'none', backgroundColor: 'transparent'}}>
+                    {stat.suffix}
+                  </span>
+                </div>
+                
+                {/* Label */}
+                <p className='font-[font1] text-responsive leading-relaxed text-layer-1'>
+                  {stat.label}
+                </p>
 
-              {/* Hover accent line */}
-              <div className='w-full accent-line mt-6 sm:mt-8 rounded-full mx-auto glow-accent'></div>
-            </div>
+                {/* Hover accent line */}
+                <div className='w-full accent-line mt-6 sm:mt-8 rounded-full mx-auto glow-accent wave-animation'></div>
+              </RippleEffect>
+            </HoverLift>
           ))}
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   )

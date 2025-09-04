@@ -3,6 +3,10 @@ import VideoGrid from '../components/projects/VideoGrid'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/all'
 import PageWrapper from '../components/common/PageWrapper'
+import ScrollReveal from '../components/effects/ScrollReveal'
+import AnimatedGradient from '../components/effects/AnimatedGradient'
+import VignetteOverlay from '../components/effects/VignetteOverlay'
+import DynamicUnderline from '../components/effects/DynamicUnderline'
 
 /**
  * Projects component - Now displays YouTube videos in a responsive grid
@@ -104,40 +108,51 @@ const Projects = () => {
   })
 
   return (
-    <PageWrapper className='section-dark'>
-      <div className="cinematic-overlay"></div>
+    <PageWrapper className='section-dark morphing-bg'>
+      <div className="cinematic-overlay">
+        <AnimatedGradient intensity="slow" />
+        <VignetteOverlay intensity="light" />
+      </div>
       <div className='container mx-auto section-padding mb-[30vh] sm:mb-[40vh] lg:mb-[50vh]'>
       {/* Page Header */}
-      <div className='pt-[25vh] sm:pt-[30vh] lg:pt-[35vh] component-margin text-center'>
-        <h1 className='font-[font2] heading-responsive-xl uppercase text-white text-layer-3 text-glow'>
-          Projets
-        </h1>
-      </div>
+      <ScrollReveal direction="scale">
+        <div className='pt-[25vh] sm:pt-[30vh] lg:pt-[35vh] component-margin text-center'>
+          <h1 className='font-[font2] heading-responsive-xl uppercase text-white text-layer-3 text-glow neon-text'>
+            <DynamicUnderline animationType="draw">
+              Projets
+            </DynamicUnderline>
+          </h1>
+        </div>
+      </ScrollReveal>
 
       <div className='projects-content space-y-16 sm:space-y-24 lg:space-y-32'>
         {/* Teasers Section */}
-        <section className='floating-panel-dark space-y-8 sm:space-y-10 lg:space-y-12'>
-          <h2 className='section-title font-[font2] text-3xl sm:text-4xl lg:text-5xl xl:text-6xl uppercase text-center text-layer-2 text-glow'>
-            Teasers
-          </h2>
-          <VideoGrid 
-            videos={teasers} 
-            gridCols="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-            aspectRatio="aspect-video"
-          />
-        </section>
+        <ScrollReveal direction="up" stagger={0.2}>
+          <section className='floating-panel-dark space-y-8 sm:space-y-10 lg:space-y-12 glass-enhanced border-glow spotlight'>
+            <h2 className='section-title font-[font2] text-3xl sm:text-4xl lg:text-5xl xl:text-6xl uppercase text-center text-layer-2 text-glow gradient-text-animated'>
+              Teasers
+            </h2>
+            <VideoGrid 
+              videos={teasers} 
+              gridCols="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+              aspectRatio="aspect-video"
+            />
+          </section>
+        </ScrollReveal>
 
         {/* Highlights Section */}
-        <section className='floating-panel-dark space-y-8 sm:space-y-10 lg:space-y-12'>
-          <h2 className='section-title font-[font2] text-3xl sm:text-4xl lg:text-5xl xl:text-6xl uppercase text-center text-layer-2 text-glow'>
-            Highlights
-          </h2>
-          <VideoGrid 
-            videos={highlights} 
-            gridCols="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-            aspectRatio="aspect-video"
-          />
-        </section>
+        <ScrollReveal direction="up" stagger={0.2}>
+          <section className='floating-panel-dark space-y-8 sm:space-y-10 lg:space-y-12 glass-enhanced border-glow spotlight'>
+            <h2 className='section-title font-[font2] text-3xl sm:text-4xl lg:text-5xl xl:text-6xl uppercase text-center text-layer-2 text-glow gradient-text-animated'>
+              Highlights
+            </h2>
+            <VideoGrid 
+              videos={highlights} 
+              gridCols="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+              aspectRatio="aspect-video"
+            />
+          </section>
+        </ScrollReveal>
       </div>
       </div>
     </PageWrapper>

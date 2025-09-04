@@ -1,6 +1,11 @@
 import React, { useRef, useEffect } from 'react'
 import gsap from 'gsap'
 import { Link } from 'react-router-dom'
+import ScrollReveal from '../effects/ScrollReveal'
+import HoverLift from '../effects/HoverLift'
+import AnimatedGradient from '../effects/AnimatedGradient'
+import VignetteOverlay from '../effects/VignetteOverlay'
+import DynamicUnderline from '../effects/DynamicUnderline'
 
 // 🔹 Video data (same as your Projects page)
 const teasers = [
@@ -57,33 +62,44 @@ const PortfolioSection = () => {
   return (
     <section
       id="portfolio"
-      className="min-h-screen section-dark-alt text-white relative depth-3 overflow-hidden section-transition"
+      className="min-h-screen section-dark-alt text-white relative depth-3 overflow-hidden section-transition morphing-bg"
     >
-      <div className="cinematic-overlay"></div>
+      <div className="cinematic-overlay">
+        <AnimatedGradient intensity="slow" />
+        <VignetteOverlay intensity="light" />
+      </div>
       <div className="container mx-auto section-padding">
-        <div className="text-center component-margin space-y-4 sm:space-y-6 lg:space-y-8">
-          <h2 className="font-[font2] heading-responsive-xl uppercase mb-4 sm:mb-6 lg:mb-8 leading-tight text-layer-3 text-glow">
-            Our Portfolio
-          </h2>
-          <div className="floating-panel-dark max-width-content">
-            <p className="font-[font1] text-responsive leading-relaxed text-layer-2">
-              Découvrez notre collection de films de mariage cinématographiques
-            </p>
+        <ScrollReveal direction="up" stagger={0.2}>
+          <div className="text-center component-margin space-y-4 sm:space-y-6 lg:space-y-8">
+            <h2 className="font-[font2] heading-responsive-xl uppercase mb-4 sm:mb-6 lg:mb-8 leading-tight text-layer-3 text-glow neon-text">
+              <DynamicUnderline animationType="draw">
+                Our Portfolio
+              </DynamicUnderline>
+            </h2>
+            <div className="floating-panel-dark max-width-content glass-enhanced border-glow">
+              <p className="font-[font1] text-responsive leading-relaxed text-layer-2 text-shimmer">
+                Découvrez notre collection de films de mariage cinématographiques
+              </p>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         <div className="portfolio-showcase space-y-12 sm:space-y-16 lg:space-y-20">
           
           {/* Moving Video Track */}
-          <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl bg-pattern-dots">
+          <ScrollReveal direction="scale">
+            <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl bg-pattern-dots glass-enhanced">
+              <AnimatedGradient className="opacity-30" />
             <div
               ref={trackRef}
               className="flex gap-4 sm:gap-6 lg:gap-8 xl:gap-12 w-[200%] py-4 sm:py-6 lg:py-8" // doubled width for seamless loop
             >
               {[...allVideos, ...allVideos].map((video, index) => (
-                <div 
+                <HoverLift
                   key={index}
-                  className="video-card flex-shrink-0 w-64 sm:w-72 lg:w-80 xl:w-96 video-glass gpu-accelerated"
+                  liftAmount={10}
+                  scale={1.03}
+                  className="video-card flex-shrink-0 w-64 sm:w-72 lg:w-80 xl:w-96 video-glass gpu-accelerated video-enhanced border-glow"
                 >
                   <div className="relative aspect-video bg-black rounded-lg sm:rounded-xl overflow-hidden">
                     <iframe
@@ -96,22 +112,27 @@ const PortfolioSection = () => {
                       loading="lazy"
                     />
                   </div>
-                </div>
+                </HoverLift>
               ))}
             </div>
-          </div>
+            </div>
+          </ScrollReveal>
 
           {/* Portfolio Button */}
-          <div className="text-center">
-            <Link 
-              to="/projects"
-              className="btn-pill btn-primary h-12 sm:h-16 lg:h-20 px-8 sm:px-12 lg:px-16 inline-flex items-center justify-center group"
-            >
-              <span className="font-[font2] text-base sm:text-xl lg:text-2xl">
-                View Our Portfolio
-              </span>
-            </Link>
-          </div>
+          <ScrollReveal direction="up">
+            <div className="text-center">
+              <HoverLift liftAmount={8} scale={1.05} glowEffect={true}>
+                <Link 
+                  to="/projects"
+                  className="btn-pill btn-primary h-12 sm:h-16 lg:h-20 px-8 sm:px-12 lg:px-16 inline-flex items-center justify-center group btn-enhanced border-glow pulse-glow"
+                >
+                  <span className="font-[font2] text-base sm:text-xl lg:text-2xl gradient-text-animated">
+                    View Our Portfolio
+                  </span>
+                </Link>
+              </HoverLift>
+            </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>
