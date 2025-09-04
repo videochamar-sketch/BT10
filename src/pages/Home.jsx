@@ -18,75 +18,52 @@ const Home = () => {
   const heroSectionRef = useRef(null)
 
   useEffect(() => {
-    // Scope animation to the hero section ref (safer than global selectors)
-    const target = heroSectionRef.current
-    if (!target) return
+    const el = heroSectionRef.current
+    if (!el) return
 
-    const tl = gsap.fromTo(
-      target,
-      {
-        opacity: 0,
-        y: 30
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: 'power2.out',
-        delay: 0.5
-      }
+    // animate the hero container (scoped to the ref)
+    const tween = gsap.fromTo(
+      el,
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 1.2, ease: 'power2.out', delay: 0.5 }
     )
 
     return () => {
-      // cleanup GSAP tween to avoid side-effects
-      if (tl && tl.kill) tl.kill()
+      if (tween && tween.kill) tween.kill()
     }
   }, [])
 
   return (
-    <div className='text-white relative overflow-x-hidden'>
+    <div className="text-white relative overflow-x-hidden">
       {/* Cinematic Header Overlay */}
       <Header />
-      
-      {/* Fixed video background */}
-      <div className='h-screen h-[100dvh] w-screen fixed top-0 left-0 z-0'>
+
+      {/* Fixed video background (kept as background layer, not touching layout) */}
+      <div className="h-screen h-[100dvh] w-screen fixed top-0 left-0 z-0">
         <Video />
         {/* Dark overlay for better text readability */}
-        <div className='absolute inset-0 bg-black/50 sm:bg-black/40 lg:bg-black/30 z-10'></div>
+        <div className="absolute inset-0 bg-black/50 sm:bg-black/40 lg:bg-black/30 z-10" />
       </div>
-      
+
       {/* Scrollable content */}
-      <div className='relative z-20'>
+      <div className="relative z-20">
         {/* Hero Section */}
-        <div ref={heroSectionRef} className='h-screen h-[100dvh] w-screen relative flex flex-col hero-content'>
+        <div
+          ref={heroSectionRef}
+          className="h-screen h-[100dvh] w-screen relative flex flex-col hero-content"
+        >
           <HomeHeroText />
         </div>
-        
-        {/* Why Us Section */}
+
+        {/* Other sections (these are imported components) */}
         <WhyUsSection />
-        
-        {/* Portfolio Section */}
         <PortfolioSection />
-        
-        {/* Stats Section */}
         <StatsSection />
-        
-        {/* Services Section */}
         <ServicesSection />
-        
-        {/* Process Section */}
         <ProcessSection />
-        
-        {/* Call-to-Action Section */}
         <CTASection />
-        
-        {/* About Us Section */}
         <AboutSection />
-        
-        {/* Contact Section */}
         <ContactSection />
-        
-        {/* Footer Section */}
         <Footer />
       </div>
     </div>
