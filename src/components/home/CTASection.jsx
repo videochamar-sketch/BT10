@@ -9,6 +9,8 @@ import RippleEffect from '../effects/RippleEffect'
 import AnimatedGradient from '../effects/AnimatedGradient'
 import VignetteOverlay from '../effects/VignetteOverlay'
 import DynamicUnderline from '../effects/DynamicUnderline'
+import AmbientLight from '../effects/AmbientLight'   // ✅ Added this
+
 
 const CTASection = () => {
   const sectionRef = useRef(null)
