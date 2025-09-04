@@ -154,8 +154,7 @@ const AboutSection = () => {
                 </AmbientLight>
               </HoverLift>
             </div>
-          </ScrollReveal>
-        </div>
+           </div>
       </div>
     </section>
   )
