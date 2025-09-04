@@ -1,5 +1,5 @@
+import React, { Suspense, lazy, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { Suspense, lazy, useEffect } from 'react'
 import LoadingFallback from './components/common/LoadingFallback'
 import ParallaxBackground from './components/effects/ParallaxBackground'
 import ParticleField from './components/effects/ParticleField'
@@ -18,6 +18,37 @@ const Contact = lazy(() => import('./pages/Contact'))
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
 const TermsOfService = lazy(() => import('./pages/TermsOfService'))
 const AffiliateProgram = lazy(() => import('./pages/AffiliateProgram'))
+
+// Simple ErrorBoundary so lazy/load errors don't crash the whole app
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { hasError: false, error: null }
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error }
+  }
+
+  componentDidCatch(error, info) {
+    // optionally log to external service
+    // console.error('ErrorBoundary caught:', error, info)
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ padding: 24, color: '#fff', background: '#111' }}>
+          <h2>Something went wrong while loading this page.</h2>
+          <pre style={{ whiteSpace: 'pre-wrap' }}>
+            {String(this.state.error)}
+          </pre>
+        </div>
+      )
+    }
+    return this.props.children
+  }
+}
 
 const App = () => {
   useEffect(() => {
@@ -46,16 +77,18 @@ const App = () => {
       <CustomCursor />
       <ScrollProgress />
       
-      <Suspense fallback={<LoadingFallback />}>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/projects' element={<Projects />} />
-          <Route path='/contact' element={<Contact />} />
-          <Route path='/privacy-policy' element={<PrivacyPolicy />} />
-          <Route path='/terms-of-service' element={<TermsOfService />} />
-          <Route path='/affiliate-program' element={<AffiliateProgram />} />
-        </Routes>
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingFallback />}>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/projects' element={<Projects />} />
+            <Route path='/contact' element={<Contact />} />
+            <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+            <Route path='/terms-of-service' element={<TermsOfService />} />
+            <Route path='/affiliate-program' element={<AffiliateProgram />} />
+          </Routes>
+        </Suspense>
+      </ErrorBoundary>
     </div>
   )
 }
