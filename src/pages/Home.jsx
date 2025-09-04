@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import Video from '../components/home/Video'
 import HomeHeroText from '../components/home/HomeHeroText'
 import HomeBottomText from '../components/home/HomeBottomText'
@@ -12,15 +12,18 @@ import CTASection from '../components/home/CTASection'
 import AboutSection from '../components/home/AboutSection'
 import ContactSection from '../components/home/ContactSection'
 import Footer from '../components/home/Footer'
-import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 
 const Home = () => {
   const heroSectionRef = useRef(null)
 
-  useGSAP(() => {
-    // Smooth fade-in animation for hero content
-    gsap.fromTo('.hero-content', 
+  useEffect(() => {
+    // Scope animation to the hero section ref (safer than global selectors)
+    const target = heroSectionRef.current
+    if (!target) return
+
+    const tl = gsap.fromTo(
+      target,
       {
         opacity: 0,
         y: 30
@@ -29,11 +32,16 @@ const Home = () => {
         opacity: 1,
         y: 0,
         duration: 1.2,
-        ease: "power2.out",
+        ease: 'power2.out',
         delay: 0.5
       }
     )
-  })
+
+    return () => {
+      // cleanup GSAP tween to avoid side-effects
+      if (tl && tl.kill) tl.kill()
+    }
+  }, [])
 
   return (
     <div className='text-white relative overflow-x-hidden'>
